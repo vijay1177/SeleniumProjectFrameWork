@@ -12,15 +12,15 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.LoginPOM;
+import com.training.pom.LoginEditPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class LoginTests {
+public class LoginEditProfile {
 
 	private WebDriver driver;
 	private String baseUrl;
-	private LoginPOM loginPOM;
+	private LoginEditPOM loginEditPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -34,7 +34,7 @@ public class LoginTests {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		loginPOM = new LoginPOM(driver); 
+		loginEditPOM = new LoginEditPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -48,12 +48,15 @@ public class LoginTests {
 	}
 	@Test
 	public void validLoginTest() {
-		loginPOM.sendUserName("vijay1177");
-		loginPOM.sendPassword("vijaystudent");
-		loginPOM.clickLoginBtn(); 
-		loginPOM.clickCaretBtn();
-		loginPOM.clickLogoutBtn();
-		Boolean ActualResult = loginPOM.getHomePage();
+		loginEditPOM.sendUserName("vijay1177");
+		loginEditPOM.sendPassword("vijaystudent");
+		loginEditPOM.clickLoginBtn(); 
+		loginEditPOM.clickEditProfile();
+		loginEditPOM.sendPass("vijaystudent");
+		loginEditPOM.sendNewPassword("studentvijay");
+		loginEditPOM.sendConfirmPassword("studentvijay");
+		loginEditPOM.clickSaveBtn();
+		Boolean ActualResult = loginEditPOM.savedInfo();
 		Assert.assertTrue(ActualResult);
 		screenShot.captureScreenShot("First");
 	}

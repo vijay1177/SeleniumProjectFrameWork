@@ -1,5 +1,7 @@
 package com.training.sanity.tests;
 
+import org.testng.annotations.Test;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -12,15 +14,16 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
+import com.training.pom.LoginAdminPOM;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class LoginTests {
+public class EnterAdminTest {
 
 	private WebDriver driver;
 	private String baseUrl;
-	private LoginPOM loginPOM;
+	private LoginAdminPOM loginAdminPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -34,7 +37,7 @@ public class LoginTests {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		loginPOM = new LoginPOM(driver); 
+		loginAdminPOM = new LoginAdminPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -48,12 +51,10 @@ public class LoginTests {
 	}
 	@Test
 	public void validLoginTest() {
-		loginPOM.sendUserName("vijay1177");
-		loginPOM.sendPassword("vijaystudent");
-		loginPOM.clickLoginBtn(); 
-		loginPOM.clickCaretBtn();
-		loginPOM.clickLogoutBtn();
-		Boolean ActualResult = loginPOM.getHomePage();
+		loginAdminPOM.sendUserName("admin");
+		loginAdminPOM.sendPassword("admin@123");
+		loginAdminPOM.clickLoginBtn(); 
+		Boolean ActualResult = loginAdminPOM.adminHomePage();
 		Assert.assertTrue(ActualResult);
 		screenShot.captureScreenShot("First");
 	}

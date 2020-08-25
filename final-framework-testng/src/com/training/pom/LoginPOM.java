@@ -19,8 +19,17 @@ public class LoginPOM {
 	@FindBy(id="password")
 	private WebElement password;
 	
-	@FindBy(id="formLogin_submitAuth")
+	@FindBy(id="form-login_submitAuth")  //formLogin_submitAuth
 	private WebElement loginBtn; 
+	
+	@FindBy(className="caret")
+	private WebElement dropDown;
+	
+	@FindBy(id="logout_button")
+	private WebElement logOut;
+	
+	@FindBy(linkText="Homepage")
+	private WebElement homePage;
 	
 	public void sendUserName(String userName) {
 		this.userName.clear();
@@ -34,5 +43,17 @@ public class LoginPOM {
 	
 	public void clickLoginBtn() {
 		this.loginBtn.click(); 
+	}
+	
+	public void clickCaretBtn() {
+		this.dropDown.click();
+	}
+	
+	public void clickLogoutBtn() {
+		this.logOut.click();
+	}
+	
+	public boolean getHomePage() {
+		return this.homePage.isDisplayed();
 	}
 }
